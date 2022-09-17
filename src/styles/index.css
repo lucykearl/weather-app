@@ -4,6 +4,8 @@ body {
   margin: 0;
   font-family: 'Pacifico', cursive;
   background-color: #eceef1;
+  text-align: center;
+  text-decoration: underline;
 }
 
 code {
