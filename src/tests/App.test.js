@@ -1,13 +1,18 @@
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import React from "react";
 import App from "../components/App";
+import forecast from "../data/forecast.json";
 
-test("renders learn react link", () => {
-  const validProps = {
-    location: {
-      city: "test city", 
-      country: "test country"
-    }
-  }
-
-  render(<App location={validProps.location} />);
-})
+describe("App", () => {
+  it("renders App component correctly", () => {
+    render(
+      <App
+        location={forecast.location}
+        forecasts={forecast.forecasts}
+        forecast={forecast.forecasts[0]}
+      />
+    );
+    const h1Element = screen.getByText(/Manchester, UK/i);
+    expect(h1Element).toBeInTheDocument();
+  });
+});

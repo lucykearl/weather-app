@@ -6,7 +6,7 @@ import ForecastSummaries from "./ForecastSummaries";
 
 function App({ forecasts, location }) {
   return (
-    <div className="forecast">
+    <div className="forecasts">
       <LocationDetails city={location.city} country={location.country} />
       <ForecastSummaries forecasts={forecasts} />
     </div>
@@ -23,7 +23,7 @@ App.propTypes = {
         max: PropTypes.number,
         min: PropTypes.number,
       }),
-    })
+    }),
   ).isRequired,
   location: PropTypes.shape({
     city: PropTypes.string,
