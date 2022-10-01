@@ -3,29 +3,51 @@ import { render } from "@testing-library/react";
 import ForecastSummaries from "../../components/ForecastSummaries";
 
 describe("ForecastSummaries", () => {
-    const validProps = [
+  const validProps = {
+    forecasts: [
       {
-        date: 1525046400000,
+        date: 1111111,
         description: "Stub description 1",
-        icon: "800",
+        icon: 800,
         temperature: {
           max: 22,
           min: 12,
         },
       },
       {
-        date: 1525132800000,
+        date: 2222222,
         description: "Stub description2",
-        icon: "602",
+        icon: 602,
         temperature: {
           max: 24,
           min: 13,
         },
       },
-    ];
+    ],
+    onForecastSelect: jest.fn(),
+    selectedDate: 1111111,
+  };
 
-    it("renders correctly", () => {
-        const { asFragment } = render(<ForecastSummaries forecasts={validProps} />);
-        expect(asFragment()).toMatchSnapshot();
-      });
+  it("renders correctly", () => {
+    const { asFragment } = render(
+        <ForecastSummaries
+          forecasts={validProps.forecasts}
+          onForecastSelect={validProps.onForecastSelect}
+          selectedDate={validProps.selectedDate}
+        />
+    );
+    expect(asFragment()).toMatchSnapshot();
   });
+
+  it("renders the correct number of ForecastSummary instances", () => {
+    const { getAllByTestId } = render(
+        <ForecastSummaries
+          forecasts={validProps.forecasts}
+          onForecastSelect={validProps.onForecastSelect}
+          selectedDate={validProps.selectedDate}
+        />
+    );
+
+    expect(getAllByTestId("forecast-summary")).toHaveLength(2);
+  });
+});
