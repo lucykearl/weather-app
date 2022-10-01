@@ -1,29 +1,32 @@
 import React from "react";
 import PropTypes from "prop-types";
 import WeatherIcon from "react-icons-weather";
+import "../styles/ForecastSummaryStyle.css";
 
-function ForecastSummary(props) {
-  const { date, description, icon, temperature } = props;
+function ForecastSummary({ date, description, icon, temperature, onSelect }) {
+  
   const formattedDate = new Date(date).toDateString();
   return (
-    <div className="forecast-summary">
+    <div className="forecast-summary" data-testid="forecast-summary">
       <div className="forecast-summary__date">{formattedDate}</div>
-      <div className="forecast-summary__icon" data-testid="forecast-icon">
-      <WeatherIcon name="owm" iconId={icon} />
-      </div>
       <div className="forecast-summary__temperature">
         {temperature.max}
         &deg;C
       </div>
       <div className="forecast-summary__description">{description}</div>
-      <button type="button" onClick={() => onSelect(date)}>
+      <div className="forecast-summary__icon" data-testid="forecast-icon">
+        <WeatherIcon name="owm" iconId={icon} />
+      </div>
+      <button
+        type="button"
+        className="forecastSummaryButton"
+        onClick={() => onSelect(date)}
+      >
         More Details...
       </button>
     </div>
   );
 }
-
-export default ForecastSummary;
 
 ForecastSummary.propTypes = {
   date: PropTypes.number.isRequired,
@@ -33,4 +36,7 @@ ForecastSummary.propTypes = {
     min: PropTypes.number,
     max: PropTypes.number,
   }).isRequired,
+  onSelect: PropTypes.func.isRequired,
 };
+
+export default ForecastSummary;
